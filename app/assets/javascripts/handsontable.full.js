@@ -10102,7 +10102,7 @@ function createEmptySpreadsheetData(rows, columns) {
   for (var i = 0; i < rows; i++) {
     row = [];
     for (var j = 0; j < columns; j++) {
-      row.push('');
+      row.push(null);
     }
     data.push(row);
   }
