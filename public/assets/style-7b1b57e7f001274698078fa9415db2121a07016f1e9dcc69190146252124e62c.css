@@ -1,0 +1,29 @@
+/* line 1, /Users/Dharini/Desktop/spreadsheet_calculator/app/assets/stylesheets/style.scss */
+body {
+  background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.9) 0%, rgba(255, 255, 255, 0.9) 100%), url(/assets/coding-d0ff958eb50a0e5f1e21f8bcdff01e63979b9f564e209bbca22ca15322d2686b.jpg);
+}
+
+/* line 5, /Users/Dharini/Desktop/spreadsheet_calculator/app/assets/stylesheets/style.scss */
+h2 {
+  text-align: center;
+}
+
+/* line 9, /Users/Dharini/Desktop/spreadsheet_calculator/app/assets/stylesheets/style.scss */
+h2:hover {
+  font-size: 30px;
+  color: #A3E4D7;
+  background-color: grey;
+}
+
+/* line 15, /Users/Dharini/Desktop/spreadsheet_calculator/app/assets/stylesheets/style.scss */
+h3 {
+  font-size: 20px;
+  color: blue;
+  text-align: center;
+}
+
+/* line 21, /Users/Dharini/Desktop/spreadsheet_calculator/app/assets/stylesheets/style.scss */
+#start {
+  margin: auto;
+  display: block;
+}
