@@ -1,0 +1,24 @@
+body {
+   background-image: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), image-url('coding.jpg');
+}
+
+h2 {
+  text-align: center
+}
+
+h2:hover {
+  font-size: 30px;
+  color: #A3E4D7;
+  background-color: grey;
+}
+
+h3 {
+  font-size: 20px;
+  color: blue;
+  text-align: center;
+}
+
+#start {
+  margin:auto;
+  display:block;
+}

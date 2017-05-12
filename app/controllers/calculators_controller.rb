@@ -1,3 +1,6 @@
+require 'securerandom'
+
+
 class CalculatorsController < ApplicationController
   ALPHABET = ('A'..'Z').to_a
   REF_REGEX = /^([A-Z]+)([0-9]+)$/
@@ -30,10 +33,15 @@ class CalculatorsController < ApplicationController
       value.to_s.split.each do |term|
 
         if reference_match = term.match(REF_REGEX)
-
+          flash = {}
           if cells_traversed.include? term
             cells_traversed << term 
-            raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
+            flash[:error] = "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
+            # respond_to do |format|
+            #   format.json { render json: "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}", status: :ok }
+            # end
+            # raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
+            break
           else
             going_deeper = cells_traversed.clone
             going_deeper << term
@@ -54,28 +62,41 @@ class CalculatorsController < ApplicationController
       return evaluation.first
     end
     
-    result_values = []
-  # go through and evaluate each cell 
-    @cells.each do |loc, value|
-      p "location #{loc} value #{value}"
-      @cells[loc] = evaluate_cell(loc, value)
-    end
-  # output final result
-    
-    @cells.values.each do |val|
-      # puts val
-      # puts sprintf('%.5f', val)
-      x = sprintf('%.5f', val)
-      result_values << x
-    end 
-    p result_values
-    new_result = []
-    result_values.each_slice(row_size){|a| new_result << a}
-    p "new result is #{new_result}"
-    # render :js => result_values
-    # respond_with(result_values)
-    respond_to do |format|
-      format.json { render json: new_result, status: :ok }
+  if flash.keys.count == 0
+      result_values = []
+    # go through and evaluate each cell 
+      @cells.each do |loc, value|
+        p "location #{loc} value #{value}"
+        @cells[loc] = evaluate_cell(loc, value)
+      end
+    # output final result
+      
+      @cells.values.each do |val|
+        # puts val
+        # puts sprintf('%.5f', val)
+        x = sprintf('%.5f', val)
+        result_values << x
+      end 
+      p result_values
+      new_result = []
+      result_values.each_slice(row_size){|a| new_result << a}
+      
+      random_string = SecureRandom.hex
+
+      result_values.each_slice(row_size).with_index do |row, row_number|  
+        row.each_with_index do |value, col_number|                       
+          location = col_number, row_number + 1  
+          p col_number, row_number, value, random_string
+          calcultor = Calculator.create(data: value, col_index: col_number, row_index: row_number, url_gen: random_string)                                   
+        end 
+      end
+
+      p "new result is #{new_result}"
+      # render :js => result_values 
+      # respond_with(result_values)
+      respond_to do |format|
+        format.json { render json: new_result, status: :ok }
+      end
     end
   end
 end
@@ -93,4 +114,5 @@ end
 #         :text => "OK",
 #         # the :location option to set the HTTP Location header
 #         :location => path_to_controller_method_url(argument)
-#       }
+#       
+

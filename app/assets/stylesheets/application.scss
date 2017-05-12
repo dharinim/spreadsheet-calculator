@@ -14,7 +14,10 @@
  *= require_self
  */
 
-body {   
+@import "bootstrap-sprockets";
+@import "bootstrap";
+
+/*body {   
   margin: 20px 30px;
   font-size: 13px;
   font-family: 'Open Sans', Helvetica, Arial;
@@ -33,4 +36,4 @@ h2 {
   margin: 20px 0 0;
   font-size: 18px;
   font-weight: normal;
-}
+}*/

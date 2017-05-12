@@ -1,17 +1,12 @@
 <script type="text/javascript"> 
-  // $(document).ready(displaySpreadsheet);
   var hot = null;
   $(document).ready(function() {
-    // $(this).on('mouse', updatespreadsheet(hot))
     $("#submission").hide();
     $('#start').on('click', displaySpreadsheet)
     $("#submission").on('click', updatespreadsheet)
 
-    function displaySpreadsheet(){
-      var data = function () {
-      return Handsontable.helper.createEmptySpreadsheetData(10, 10);
-      };
-   
+    function displaySpreadsheet() {
+      var data = Handsontable.helper.createEmptySpreadsheetData(10, 10);
       var container = document.getElementById('calculator');
       // console.log(container)
       //   var data = [
@@ -20,9 +15,9 @@
       // ["2017", 20, 11, 14, 13],
       // ["2018", 30, 15, 12, 13]
       // ];
-        console.log("getting data");
-        hot = new Handsontable(container, {
-        data: data(),
+      console.log("getting data");
+      hot = new Handsontable(container, {
+        data: data,
         minSpareCols: 1,
         minSpareRows: 1,
         rowHeaders: true,
@@ -34,11 +29,6 @@
       console.log("getting data")
       console.log(hot.countEmptyRows())
       console.log(hot.countEmptyCols())
-      // console.log(hot.countRows())
-      // console.log(hot.countCols())
-      // console.log(hot.getData())
-      // console.log(JSON.stringify(hot.getData()))
-      // updatespreadsheet(hot);
       console.log(hot)    
     }
 
@@ -71,27 +61,14 @@
       // console.log($(hot).data)
         console.log("getting data");
         $('#calculator').hide();
-        // console.log(data)
-      //   hot = new Handsontable(container, {
-      //   data: data(),
-      //   minSpareCols: 1,
-      //   minSpareRows: 1,
-      //   rowHeaders: true,
-      //   colHeaders: true,
-      //   contextMenu: true
-      // });
-
-        // hot[data] = data;
         console.log('printing hot')
         var container1 = document.getElementById('calculator1');
-      // console.log(container)
-        var data = [
-      ["", "Ford", "Volvo", "Toyota", "Honda"],
-      ["2016", 10, 11, 12, 13],
-      ["2017", 20, 11, 14, 13],
-      ["2018", 30, 15, 12, 13]
-      ];
-      //   console.log("getting data");
+      //   var data = [
+      // ["", "Ford", "Volvo", "Toyota", "Honda"],
+      // ["2016", 10, 11, 12, 13],
+      // ["2017", 20, 11, 14, 13],
+      // ["2018", 30, 15, 12, 13]
+      // ];
         hot1 = new Handsontable(container1, {
         data: result,
         minSpareCols: 1,
@@ -111,13 +88,11 @@
 </script>
 
 <h2>Spreadsheet Calculator</h2>
-<p>
-Enter the data in spreadsheet and get the results
-</p>
+<h3>Maximize the Power of spreadsheet with the ease of calculator</h3>
 
 <div id="calculator"></div>
 <div id="calculator1"></div>
-<input type="button" value="start" id="start">
+<input type="button" value="Start Calculating now" class="btn btn-primary active" id="start">
 <input type="button" value="Submit" id="submission">
 
 
