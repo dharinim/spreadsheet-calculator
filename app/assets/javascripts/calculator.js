@@ -15,7 +15,8 @@ $(document).ready(function() {
         minSpareRows: 1,
         rowHeaders: true,
         colHeaders: true,
-        contextMenu: true
+        contextMenu: true,
+        colWidthsArray: 500
       });
       //$('#start').hide();
       $("#submission").show();   
@@ -42,6 +43,7 @@ $(document).ready(function() {
           colHeaders: true,
           contextMenu: true
         });
+        $('.nav-tabs a[href="#2a"]').tab('show')
       }
       }).done(
         );

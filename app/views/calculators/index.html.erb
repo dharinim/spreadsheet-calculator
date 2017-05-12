@@ -1,10 +1,28 @@
-<h2>Spreadsheet Calculator</h2>
-<h3>Maximize the Power of spreadsheet with the ease of calculator</h3>
 
-<div id="calculator"></div>
-<div id="calculatorEvaluated"></div>
-<!-- <input type="button" value="Start Calculating now" class="btn btn-primary active" id="start"> -->
-<input type="button" value="Submit" id="submission">
+<div id="exTab2" class="container"> 
+    <ul  class="nav nav-tabs">
+      <li class="active">
+        <a  href="#1a" data-toggle="tab">Input Sheet</a>
+      </li>
+      <li><a href="#2a" data-toggle="tab">Evaluated Sheet</a>
+      </li>
+    </ul>
+
+    <div class="tab-content clearfix">
+      <div class="tab-pane active" id="1a">
+        <h3>Please enter data to evaluate the sheet</h3>
+        <div id="calculator"></div>
+        <div>
+          <input class="btn btn-success" type="button" value="Evaluate" id="submission">
+        </div>
+      </div>
+      <div class="tab-pane" id="2a">
+        <h3>Your evaluated sheet</h3>
+        <div id="calculatorEvaluated"></div>
+      </div>
+    </div>
+</div>
+
 
 
 
