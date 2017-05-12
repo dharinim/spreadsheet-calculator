@@ -42,6 +42,19 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     assert_equal [["1.00000","2.00000","3.00000"]], JSON.parse(response.body)
   end
 
+  test "show_result success when single cell data is sent" do
+    post_params = { 
+      xls_data: [["1"]],
+      col_count: 1
+    }
+
+    post "/calculators", params: post_params, as: :json
+    # post :create, {:post => data}
+    # post :create, {:post => {}, :user => {:email => 'abc@abcd'} }
+    assert_equal 200, response.status
+    assert_equal [["1.00000"]], JSON.parse(response.body)
+  end
+
   test "show_result evaluates polish notations" do
     post_params = { 
       xls_data: [["100 10 +", "2", "3"]],

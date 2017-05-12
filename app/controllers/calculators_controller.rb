@@ -34,11 +34,10 @@ class CalculatorsController < ApplicationController
     instructions = data
     row_size = col_count
 
-
     xls_evalutor = Calculator::XLSEvaluator.new(instructions, row_size)
 
     begin
-      result_values = xls_evalutor.evaluate
+      evaluate_cells = xls_evalutor.evaluate
     rescue Calculator::CyclicError => e
         response_data = {
             error_code: "cyclic_dependency",
@@ -59,24 +58,18 @@ class CalculatorsController < ApplicationController
         end
     end
 
-      new_result = []
-      result_values.each_slice(row_size){|a| new_result << a}
-      
-      random_string = SecureRandom.hex
-
-      result_values.each_slice(row_size).with_index do |row, row_number|  
-        row.each_with_index do |value, col_number|                       
-          location = col_number, row_number + 1  
-          #p col_number, row_number, value, random_string
-          calcultor = Calculator.create(data: value, col_index: col_number, row_index: row_number, url_gen: random_string)                                   
-        end 
-      end
-
-     
-      respond_to do |format|
-        format.json { render json: new_result, status: :ok }
-      end
+    # generating a unique key so that we can retrieve this data again
+    # e.g. /calculators/uNiQueID will retrieve the specific evaluated sheet
+    unique_url_identifier = SecureRandom.hex
+    Calculator.store_evaluated_instructions(evaluate_cells, row_size, unique_url_identifier)
+   
+    new_result = []
+    evaluate_cells.each_slice(row_size){|a| new_result << a}
+    
+    respond_to do |format|
+      format.json { render json: new_result, status: :ok }
     end
+  end 
 end
 
 
