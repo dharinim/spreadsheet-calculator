@@ -5,13 +5,13 @@ class CalculatorTest < ActiveSupport::TestCase
     @basic = {
       instructions: ["1", "2", "3"],
       row_size: 3,
-      output: ["1.00000", "2.00000", "3.00000"]
+      output: ["1.000", "2.000", "3.000"]
     }
 
     @references = {
       instructions: ["1", "2", "A1"],
       row_size: 3,
-      output: ["1.00000", "2.00000", "1.00000"]
+      output: ["1.000", "2.000", "1.000"]
     }
 
     @cyclic = {
@@ -23,25 +23,25 @@ class CalculatorTest < ActiveSupport::TestCase
     @two_rows = {
       instructions: ["1", "2", "A1", "1", "2", "A1"],
       row_size: 3,
-      output: ["1.00000", "2.00000", "1.00000", "1.00000", "2.00000", "1.00000"]
+      output: ["1.000", "2.000", "1.000", "1.000", "2.000", "1.000"]
     }
 
     @lower_case = {
       instructions: ["1", "2", "a1"],
       row_size: 3,
-      output: ["1.00000", "2.00000", "0.00000"]
+      output: ["1.000", "2.000", "0.000"]
     }
 
     @lower_case_cyclic = {
       instructions: ["a1", "1", "2"],
       row_size: 3,
-      output: ["0.00000", "1.00000", "2.00000"]
+      output: ["0.000", "1.000", "2.000"]
     }
 
     @single_cell = {
       instructions: ["1"],
       row_size: 1,
-      output: ["1.00000"]
+      output: ["1.000"]
     }
 
     @empty_cell = {
@@ -53,7 +53,7 @@ class CalculatorTest < ActiveSupport::TestCase
     @complex_polish_notation = {
       instructions: ["B2", "4 3 *", "C2", "A1 B1 / 2 +", "13", "B1 A2 / 2 *"],
       row_size: 3,
-      output: ["13.00000", "12.00000", "7.78378", "3.08333", "13.00000", "7.78378"]
+      output: ["13.000", "12.000", "7.784", "3.083", "13.000", "7.784"]
     }
   end
 

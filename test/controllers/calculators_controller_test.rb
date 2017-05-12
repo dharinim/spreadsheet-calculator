@@ -22,7 +22,7 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
 
     expectedRepsonse = {
       "error_code"=>"no_col_data_found",
-      "message"=>"No col_count data was submitted."
+      "message"=>"Please enter data to evalute"
     }
 
     assert_equal 500, response.status
@@ -39,7 +39,7 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     # post :create, {:post => data}
     # post :create, {:post => {}, :user => {:email => 'abc@abcd'} }
     assert_equal 200, response.status
-    assert_equal [["1.00000","2.00000","3.00000"]], JSON.parse(response.body)
+    assert_equal [["1.000","2.000","3.000"]], JSON.parse(response.body)
   end
 
   test "show_result success when single cell data is sent" do
@@ -52,7 +52,7 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     # post :create, {:post => data}
     # post :create, {:post => {}, :user => {:email => 'abc@abcd'} }
     assert_equal 200, response.status
-    assert_equal [["1.00000"]], JSON.parse(response.body)
+    assert_equal [["1.000"]], JSON.parse(response.body)
   end
 
   test "show_result evaluates polish notations" do
@@ -65,7 +65,7 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     # post :create, {:post => data}
     # post :create, {:post => {}, :user => {:email => 'abc@abcd'} }
     assert_equal 200, response.status
-    assert_equal [["110.00000","2.00000","3.00000"]], JSON.parse(response.body)
+    assert_equal [["110.000","2.000","3.000"]], JSON.parse(response.body)
   end
 
   test "show_result evaluates with polish notations and references" do
@@ -78,7 +78,7 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     # post :create, {:post => data}
     # post :create, {:post => {}, :user => {:email => 'abc@abcd'} }
     assert_equal 200, response.status
-    assert_equal [["110.00000","2.00000","110.00000"]], JSON.parse(response.body)
+    assert_equal [["110.000","2.000","110.000"]], JSON.parse(response.body)
   end
 
   test "show_result evaluates with references" do
@@ -91,7 +91,7 @@ class CalculatorsControllerTest < ActionDispatch::IntegrationTest
     # post :create, {:post => data}
     # post :create, {:post => {}, :user => {:email => 'abc@abcd'} }
     assert_equal 200, response.status
-    assert_equal [["1.00000","2.00000","1.00000"]], JSON.parse(response.body)
+    assert_equal [["1.000","2.000","1.000"]], JSON.parse(response.body)
   end
 
   test "show_result evaluates with cyclic references" do
