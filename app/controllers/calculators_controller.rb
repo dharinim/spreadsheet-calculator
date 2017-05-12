@@ -1,6 +1,9 @@
 require 'securerandom'
 
 
+class CyclicError < StandardError
+end
+
 class CalculatorsController < ApplicationController
   ALPHABET = ('A'..'Z').to_a
   REF_REGEX = /^([A-Z]+)([0-9]+)$/
@@ -9,10 +12,31 @@ class CalculatorsController < ApplicationController
   end
 
   def show_result
-    p "printing spreadsheet values"
-    p params[:json].flatten
-    data = params[:json].flatten
-    p params[:col_count]
+    if params[:xls_data] == nil
+      response_data = {
+          error_code: "no_xls_data_found",
+          message: "No xls data was submitted."
+      }
+
+      return respond_to do |format|
+        format.json { render json: response_data, status: :error }
+      end
+
+    elsif params[:col_count] == nil
+      response_data = {
+          error_code: "no_col_data_found",
+          message: "No col_count data was submitted."
+      }
+
+      return respond_to do |format|
+        format.json { render json: response_data, status: :error }
+      end
+    end
+
+
+    # p params[:xls_data].flatten
+    data = params[:xls_data].flatten
+    # p params[:col_count]
     col_count = params[:col_count]
 
     instructions = data
@@ -36,12 +60,7 @@ class CalculatorsController < ApplicationController
           flash = {}
           if cells_traversed.include? term
             cells_traversed << term 
-            flash[:error] = "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
-            # respond_to do |format|
-            #   format.json { render json: "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}", status: :ok }
-            # end
-            # raise "cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}"
-            break
+            raise CyclicError.new("cyclic dep detectected. trace: #{cells_traversed.join(' >> ')}")
           else
             going_deeper = cells_traversed.clone
             going_deeper << term
@@ -66,8 +85,28 @@ class CalculatorsController < ApplicationController
       result_values = []
     # go through and evaluate each cell 
       @cells.each do |loc, value|
-        p "location #{loc} value #{value}"
-        @cells[loc] = evaluate_cell(loc, value)
+        # p "location #{loc} value #{value}"
+        begin
+          @cells[loc] = evaluate_cell(loc, value)
+        rescue CyclicError => e
+            response_data = {
+                error_code: "cyclic_dependency",
+                message: e.message
+            }
+
+            return respond_to do |format|
+              format.json { render json: response_data, status: :error }
+            end
+        rescue => e
+            response_data = {
+                error_code: "some_random_error",
+                message: e
+            }
+
+            return respond_to do |format|
+              format.json { render json: response_data, status: :error }
+            end
+        end
       end
     # output final result
       
@@ -77,7 +116,7 @@ class CalculatorsController < ApplicationController
         x = sprintf('%.5f', val)
         result_values << x
       end 
-      p result_values
+      # p result_values
       new_result = []
       result_values.each_slice(row_size){|a| new_result << a}
       
@@ -86,12 +125,12 @@ class CalculatorsController < ApplicationController
       result_values.each_slice(row_size).with_index do |row, row_number|  
         row.each_with_index do |value, col_number|                       
           location = col_number, row_number + 1  
-          p col_number, row_number, value, random_string
+          #p col_number, row_number, value, random_string
           calcultor = Calculator.create(data: value, col_index: col_number, row_index: row_number, url_gen: random_string)                                   
         end 
       end
 
-      p "new result is #{new_result}"
+      # p "new result is #{new_result}"
       # render :js => result_values 
       # respond_with(result_values)
       respond_to do |format|

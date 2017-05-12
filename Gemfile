@@ -36,6 +36,7 @@ gem 'jbuilder', '~> 2.5'
 # gem 'capistrano-rails', group: :development
 gem 'hirb'
 gem 'momentjs-rails'
+gem "minitest", "5.10.1"
 
 
 group :development, :test do
