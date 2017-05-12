@@ -1,24 +1,15 @@
-# README
+#Spreadsheet Calculator
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
 
-Things you may want to cover:
+#Solve revese polish notation using Spreadsheet Calculator
 
-* Ruby version
+## 1) Enter data to be Evaluated
+Enter the value in the cells of the spreadsheet in reverse polish notation
 
-* System dependencies
+Select the Evaluate button
 
-* Configuration
+![alt movie_talkies_review](https://raw.githubusercontent.com/upcounsel/uc-challenge-dharinim/spreadsheet_calculator/master/public/assets/data_to_be_evaluated.png)
 
-* Database creation
+## 2) Results based on data entered
+![alt movie_talkies_review](https://raw.githubusercontent.com/upcounsel/uc-challenge-dharinim/spreadsheet_calculator/master/public/assets/results.png)
 
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
