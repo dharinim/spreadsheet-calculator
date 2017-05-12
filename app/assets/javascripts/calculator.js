@@ -32,21 +32,26 @@ $(document).ready(function() {
         dataType: "json",
         contentType: "application/json; charset=utf-8",
         data: JSON.stringify({xls_data: xlsData, col_count: colCount} ),
-        success: function (result){
-          $("#calculatorEvaluated").html("");
-          var container1 = document.getElementById('calculatorEvaluated');
-          hot1 = new Handsontable(container1, {
-          data: result,
-          minSpareCols: 1,
-          minSpareRows: 1,
-          rowHeaders: true,
-          colHeaders: true,
-          contextMenu: true
-        });
-        $('.nav-tabs a[href="#2a"]').tab('show')
-      }
-      }).done(
-        );
-
+        success: function (result) {
+            $("#calculatorEvaluated").html("");
+            var container1 = document.getElementById('calculatorEvaluated');
+            hot1 = new Handsontable(container1, {
+                data: result,
+                minSpareCols: 1,
+                minSpareRows: 1,
+                rowHeaders: true,
+                colHeaders: true,
+                contextMenu: true
+              }
+            );
+            $('.nav-tabs a[href="#2a"]').tab('show')
+        },
+        error: function (response, m) {
+          var errorMesage = response.responseJSON.message;
+          $("#flash").html(errorMesage);
+          $("#flash").removeClass("btn-info");
+          $("#flash").addClass("btn-danger")
+        }
+      })
     }
 })

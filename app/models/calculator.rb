@@ -41,7 +41,7 @@ class Calculator < ApplicationRecord
       # output final result
       result_values = []
       @cells.values.each do |val|
-        x = sprintf('%.5f', val)
+        x = sprintf('%.3f', val)
         result_values << x
       end 
 

@@ -16,10 +16,10 @@ class CalculatorsController < ApplicationController
         format.json { render json: response_data, status: :error }
       end
 
-    elsif params[:col_count] == nil
+    elsif params[:col_count] == nil || params[:col_count] == 0
       response_data = {
           error_code: "no_col_data_found",
-          message: "No col_count data was submitted."
+          message: "Please enter data to evalute"
       }
 
       return respond_to do |format|
