@@ -1,7 +1,9 @@
 var hot = null;
 $(document).ready(function() {
     $("#submission").hide();
-    $('#start').on('click', displaySpreadsheet)
+    //$('#start').on('click', displaySpreadsheet)
+    displaySpreadsheet();
+
     $("#submission").on('click', evaluateSpredsheet)
 
     function displaySpreadsheet() {
@@ -15,7 +17,7 @@ $(document).ready(function() {
         colHeaders: true,
         contextMenu: true
       });
-      $('#start').hide();
+      //$('#start').hide();
       $("#submission").show();   
     }
 
@@ -28,11 +30,10 @@ $(document).ready(function() {
         method: 'POST',
         dataType: "json",
         contentType: "application/json; charset=utf-8",
-        data: JSON.stringify({xls_data: xlsData, col_count: colCount} )
-      }).done(
-        function (result){
-          $('#calculator').hide();
-          var container1 = document.getElementById('calculator1');
+        data: JSON.stringify({xls_data: xlsData, col_count: colCount} ),
+        success: function (result){
+          $("#calculatorEvaluated").html("");
+          var container1 = document.getElementById('calculatorEvaluated');
           hot1 = new Handsontable(container1, {
           data: result,
           minSpareCols: 1,
@@ -41,7 +42,9 @@ $(document).ready(function() {
           colHeaders: true,
           contextMenu: true
         });
-      });
+      }
+      }).done(
+        );
 
     }
 })

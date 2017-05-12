@@ -1,3 +1,22 @@
 // Place all the styles related to the calculators controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+body {
+   background-image: linear-gradient(to bottom, rgba(255,255,255,0.9) 0%,rgba(255,255,255,0.9) 100%), image-url('coding.jpg');
+}
+
+h2 {
+  text-align: center
+}
+
+h3 {
+  font-size: 20px;
+  color: blue;
+  text-align: center;
+}
+
+#start {
+  margin:auto;
+  display:block;
+}
