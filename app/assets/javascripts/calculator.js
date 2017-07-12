@@ -48,7 +48,7 @@ XlsManager.prototype.validateInput = function (data) {
   
 }
 
-function evaluateSpredsheet(xlsManager) {
+function closeEvaluatedSpredsheet(xlsManager) {
     return function evaluateSpredsheet(e, obj) {
       var xlsData = xlsManager.originalSheet.getData();
       var colCount = xlsManager.originalSheet.countCols() - xlsManager.originalSheet.countEmptyCols();
@@ -62,7 +62,7 @@ function evaluateSpredsheet(xlsManager) {
           data: JSON.stringify({xls_data: xlsData, col_count: colCount} ),
           success: function (result) {
               $("#calculatorEvaluated").html("");
-              $('.nav-tabs a[href="#2a"]').tab('show')
+              $('.nav-tabs a[href="#2a"]').tab('show');
 
               xlsManager.displayEvaluatedSpreadsheet(result);
           },
@@ -85,5 +85,5 @@ function evaluateSpredsheet(xlsManager) {
 $(document).ready(function() {
     var xlsManager = new XlsManager();
     xlsManager.displayOriginalSpreadsheet();
-    $("#submission").on('click', evaluateSpredsheet(xlsManager))
+    $("#submission").on('click', closeEvaluatedSpredsheet(xlsManager));
 })
